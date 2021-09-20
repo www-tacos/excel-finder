@@ -1,0 +1,9 @@
+# 検索結果はgit対象外
+results
+
+# test用エクセルファイルがアップロードされることの防止用
+*.xlsx
+*.xls
+*.xlt
+*.xlsm
+*.xlm
