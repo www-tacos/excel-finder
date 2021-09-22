@@ -22,25 +22,25 @@
 
 - 検索対象のディレクトリを入力する
 
-[!ディレクトリ入力画面](./img/ss_enter_dir.png)
+![ディレクトリ入力画面](./img/ss_enter_dir.png)
 
 - 検索キーワードを入力する
 
-[!キーワード入力画面](./img/ss_enter_keyword.png)
+![キーワード入力画面](./img/ss_enter_keyword.png)
 
 - パスワードを入力する
 
-[!パスワード入力画面](./img/ss_enter_password.png)
+![パスワード入力画面](./img/ss_enter_password.png)
 
 - 検索の設定を確認して問題なければyを入力する
 
-[!確認画面](./img/ss_enter_agree.png)
+![確認画面](./img/ss_enter_agree.png)
 
 - コンソール上に検索の進捗が表示され、検索にヒットしたセルは色付きで表示される
 - 開けなかったファイルは最後にまとめて表示される
 - 検索結果はcsvとしてresultsディレクトリに保存される
 
-[!結果画面指定](./img/ss_result.png)
+![結果画面指定](./img/ss_result.png)
 
 
 
