@@ -55,7 +55,7 @@ while($True) {
 <#--------------------------------------------------
 Excelファイル一覧取得
 --------------------------------------------------#>
-$files = (Get-ChildItem $dpath -Include "*.xlsx","*.xls","*.xlt","*.xlsm","*.xlm" -Recurse)
+$files = (Get-ChildItem $dpath -Include "*.xlsx","*.xls","*.xlt","*.xlsm","*.xlm" -Recurse -File)
 
 
 <#--------------------------------------------------
@@ -63,6 +63,7 @@ $files = (Get-ChildItem $dpath -Include "*.xlsx","*.xls","*.xlt","*.xlsm","*.xlm
 --------------------------------------------------#>
 Write-Host ("`n" * 2)
 Write-Host "キーワードを指定してください"
+Write-Host "※大文字小文字は区別しません"
 Write-Host "--------------------------------------------------"
 $keyword = Read-Host
 
@@ -158,19 +159,10 @@ $files | % { $cnt = 0 } {
   } catch [System.IO.IOException] {
     # ファイルを開けない場合はスキップ
   } catch {
-    # 強制終了などした場合はエクセルを閉じる
+    # 強制終了などした場合は途中で終了
     Write-Error $PSItem.Exception
-    $EXCELAPP.Quit()
-    # 明示的なGC
-    $ws = $null
-    $wb = $null
-    $EXCELAPP = $null
-    # [System.GC]::Collect([System.GC]::MaxGeneration)
-    [System.GC]::Collect()
-    Write-Host "処理が異常終了しました"
-    Write-Host "終了するにはEnterを押してください"
-    Read-Host
-    exit 1
+    $IS_ERR = $True
+    break
   }
 }
 $EXCELAPP.Quit()
@@ -181,6 +173,17 @@ $wb = $null
 $EXCELAPP = $null
 # [System.GC]::Collect([System.GC]::MaxGeneration)
 [System.GC]::Collect()
+
+
+<#--------------------------------------------------
+異常終了
+--------------------------------------------------#>
+if($IS_ERR) {
+  Write-Host "処理が異常終了しました"
+  Write-Host "終了するにはEnterを押してください"
+  Read-Host
+  exit 1
+}
 
 
 <#--------------------------------------------------
@@ -206,6 +209,10 @@ if ($results.Count -gt 0) {
   Write-Host "検索結果がありませんでした"
 }
 
+
+<#--------------------------------------------------
+正常終了
+--------------------------------------------------#>
 Write-Host ("`n" * 2)
 Write-Host "処理が終了しました"
 Write-Host "終了するにはEnterを押してください"
